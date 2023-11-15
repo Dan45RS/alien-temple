@@ -14,6 +14,11 @@ public class AlienTemple
         // to the playGame() function as in the switch statements below, so that 
         // newGame() only creates a new save file, and playGame() selects from
         // available save files to play -Alec
+
+        // for the new game option: 
+            // 1) ask the player for a file name
+            // 2) create file with that name
+            // 3) return location of file
         
         // Intro
         String introParagraph = "ALIEN TEMPLE\n\n"
@@ -24,8 +29,8 @@ public class AlienTemple
             + "were apparently investigating a nearby alien temple,\n"
             + "but one day it seems they never returned from the\n"
             + "temple, and yet strangely their distress beacon was\n"
-            + "activated. Seeing no other choice, you enter the\n"
-            + "temple hoping to rescue the missing researchers....\n";
+            + "activated. Seeing no other choice, you approach the\n"
+            + "temple entrence hoping to rescue the missing researchers....\n";
         System.out.println(introParagraph);
         // game functionality stuff goes not in 
     }
@@ -54,27 +59,18 @@ public class AlienTemple
                 case "quit":
                     break;
             }
-            // for the new game option: 
-            // 1) ask the player for a file name
-            // 2) create file with that name
-            // 3) then just run loadGame() lol
-
+            
             // What's a save file's usual extension? (like .exe, .dmg, .c, .java, ...)
 
             // Looks like it's typically .gam
 
             /*
-            if(choice == "new game")
-            {
-                System.out.println(introParagraph);
-                // startGame();
-            }
-            else if(choice == "load game")// guilt-trip the player ig...
+            guilt-trip the player ig...
             {
                 // maybe let's not do this lol:
                 // System.out.println("\nUpon reaching the temple where the signal was received, you suddenly 
-                // begin to have second thoughts on whether you actually want to enter or not. You suddenly 
-                // started to fear for your life and what the worst thing would happen once you set foot inside. 
+                // begin to have second thoughts on whether you actually want to enter or not. Your mind is 
+                // consumed by thoughts of what horrors lie behind the temple gates, and  
                 // Eventually, you give up, take the ship back home. Everybody back at the station asks what 
                 // happened, and you describe why you didn't go in. They try to comfort you and say that it's 
                 // okay, but in reality they despise you because you turned out to be a fuckin' coward. \"How 
