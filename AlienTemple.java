@@ -10,6 +10,17 @@ public class AlienTemple
 {
     public void startGame()
     {
+        // Intro
+        String introParagraph = "ALIEN TEMPLE\n\n"
+            + "The year is 2739. You are a space adventurer,\n"
+            + "answering the distress call of a research outpost\n"
+            + "on a mysterious planet. When you arrive at the\n"
+            + "outpost, you find it abandoned: the researchers\n"
+            + "were apparently investigating a nearby alien temple,\n"
+            + "but one day it seems they never returned from the\n"
+            + "temple, and yet strangely their distress beacon was\n"
+            + "activated. Seeing no other choice, you enter the\n"
+            + "temple hoping to rescue the missing researchers....\n";
         System.out.println(introParagraph);
         // game functionality stuff goes here
     }
@@ -18,43 +29,16 @@ public class AlienTemple
         try
         {
             Scanner sc = new Scanner(System.in);
-            // Intro
-            String introParagraph = "ALIEN TEMPLE\n\n"
-                + "The year is 2739. You are a space adventurer,\n"
-                + "answering the distress call of a research outpost\n"
-                + "on a mysterious planet. When you arrive at the\n"
-                + "outpost, you find it abandoned: the researchers\n"
-                + "were apparently investigating a nearby alien temple,\n"
-                + "but one day it seems they never returned from the\n"
-                + "temple, and yet strangely their distress beacon was\n"
-                + "activated. Seeing no other choice, you enter the\n"
-                + "temple hoping to rescue the missing researchers....\n";
-            System.out.println(introParagraph);
-
-
             // Instead of immediately asking if the player wants to venture forth, lets use that for when the
-            // player opts to start a NEW game, so at the start menu there should be a few options, including:
-            // new game, load game, quit, anything else we can think of. -Alec
+            // player opts to start a NEW game
+            
+            // at the start menu there should be a few options, including:
+            // new game, load game, quit, anything else we can think of
 
             // Actually, that does make sense. Real quick question: does next() only take in one word, or can
             // it also take multiple? - Dan
     
-            String choice = sc.next();
-
-            // get rid of everyting except choice? - Dan
-            // I think we can keep the intro paragraph, makes sense to have it print with the start of the game
-            // as like an openning crawl- Alec
-            
-            // I see what you mean, but wouldn't you print that before the game starts as well? - Dan
-            // No need to print it at the beginning of the program...
-
-            // I gotcha. Yeah, lets move that to the start new game option then. -Alec   
-            
-            // Cool. Will the main menu just be a switch statement? - Dan
-
-            // That sounds good, swtch statement I think would be best in case we wanted to add
-            // stuff  
-            
+            String choice = sc.next();            
             switch(choice)
             {
                 case "new game":
