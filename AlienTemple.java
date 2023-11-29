@@ -605,7 +605,6 @@ public class AlienTemple {
         // Additional room logic
     }
 
-    // Other rooms can be added in a similar fashion
 
     public void fight(int monsterHP) {
         while (monsterHP > 0 && playerHP > 0) {
@@ -675,7 +674,5 @@ public class AlienTemple {
         System.out.println("You decided to leave the temple. Game Over.");
         System.exit(0);
     }
-
-    // Additional methods for more rooms and game logic can be added here
 
 }
