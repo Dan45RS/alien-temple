@@ -382,3 +382,567 @@ public void end() {
 		System.out.println("\n------------------------------------------------------------------\n");
 	}
 }
+|||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||
+package Alien_Temple;
+import java.awt.Font;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Scanner;
+import java.awt.Color;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+
+import Alien_Temple.AlienTemple.ChoiceHandler;
+import Alien_Temple.AlienTemple.TitleScreenHandler;
+
+import javax.swing.Action;
+import javax.swing.JButton;
+
+
+import java.awt.Container;
+
+public class AlienTemple {
+
+        JFrame window;
+        Container Alien; // button panels 
+        JPanel titleAlienpanel, startAlienpanel, Alientextpanel, AlienchoicePanel, AlienplayerPanel; //panel for our buttons
+        JLabel titleAlienLabel, hpLabel, hpLabelNumber, weaponLabel, weaponLabelName; // to add text for panels
+        Font titleFont = new Font("Times New Roman", Font.PLAIN, 90); //font type of title
+        Font startFont = new Font("Times New Roman", Font.PLAIN, 18); //font type of start button
+        JButton startButton, choice1, choice2, choice3, choice4;
+        JTextArea mainTextArea;
+        int playerHP;
+        int AlienHP;
+        int obeliskKey;
+        String playerWeapon, position;
+        Scanner myScanner = new Scanner(System.in);
+
+
+        TitleScreenHandler AlienHandler = new TitleScreenHandler();
+        ChoiceHandler choiceHandler = new ChoiceHandler();
+    public static void main(String[] args) {
+        new AlienTemple();
+    }
+
+
+public AlienTemple(){
+    // Our window creation
+    window = new JFrame();
+    window.setSize(800, 600);
+    window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); // adds function to window to close *important
+    window.getContentPane().setBackground(Color.black); //set color of the window
+    window.setLayout(null); // default layout but we want custom
+    Alien = window.getContentPane();
+
+    titleAlienpanel = new JPanel();
+    titleAlienpanel.setBounds(100, 100, 600, 150); // panel for title name xy axis and width height of panel
+    titleAlienpanel.setBackground(Color.black);
+    titleAlienLabel = new JLabel("Alien Temple");
+    titleAlienLabel.setForeground(Color.green); //color of text
+    titleAlienLabel.setFont(titleFont);
+    //start button
+    startAlienpanel = new JPanel();// button panel
+    startAlienpanel.setBounds(300, 400, 200, 100);
+    startAlienpanel.setBackground(Color.black);
+
+    startButton = new JButton("START GAME"); //button
+    startButton.setBackground(Color.blue);
+    startButton.setForeground(Color.black);
+    startButton.setFont(startFont);
+    startButton.addActionListener(AlienHandler);//when start button pressed call the titlescreenhandler class
+    startButton.setFocusPainted(false);
+
+    
+    
+    titleAlienpanel.add(titleAlienLabel);
+    startAlienpanel.add(startButton);
+    Alien.add(titleAlienpanel); 
+    Alien.add(startAlienpanel);
+
+
+    window.setVisible(true); // visible window
+}
+public void createGameScreen(){
+        titleAlienpanel.setVisible(false); //disable title panel
+        startAlienpanel.setVisible(false); //disable start panel
+        Alientextpanel = new JPanel();
+        Alientextpanel.setBounds(100, 100, 600, 250);
+        Alientextpanel.setBackground(Color.black);
+        Alien.add(Alientextpanel);
+        //Main text color changes
+        mainTextArea = new JTextArea("This is going to be great");//edit the main text
+        mainTextArea.setBounds(100, 100, 600, 250);
+        
+        mainTextArea.setBackground(Color.black);
+        mainTextArea.setForeground(Color.green);
+        mainTextArea.setFont(startFont); //use font from start button
+        mainTextArea.setLineWrap(true); //text lapping if text is too long
+        Alientextpanel.add(mainTextArea);
+
+        AlienchoicePanel = new JPanel();
+        AlienchoicePanel.setBounds(250,350, 300, 150);
+        AlienchoicePanel.setBackground(Color.black);
+        AlienchoicePanel.setLayout(new GridLayout(4,1));//puts the choice buttons in columns
+        Alien.add(AlienchoicePanel);
+
+        choice1 = new JButton("choice 1");
+        choice1.setBackground(Color.black);
+        choice1.setForeground(Color.black);
+        choice1.setFont(startFont);
+        choice1.addActionListener(choiceHandler);
+        choice1.setActionCommand("c1");// shows to differ from start button
+        AlienchoicePanel.add(choice1);
+
+        choice2 = new JButton("choice 2");
+        choice2.setBackground(Color.white);
+        choice2.setForeground(Color.black);
+        choice2.setFont(startFont);
+        choice2.addActionListener(choiceHandler);
+        choice2.setActionCommand("c2");
+        AlienchoicePanel.add(choice2);
+
+        choice3 = new JButton("choice 3");
+        choice3.setBackground(Color.white);
+        choice3.setForeground(Color.black);
+        choice3.setFont(startFont);
+        choice3.addActionListener(choiceHandler);
+        choice3.setActionCommand("c3");
+        AlienchoicePanel.add(choice3);
+
+        choice4 = new JButton("choice 4");
+        choice4.setBackground(Color.white);
+        choice4.setForeground(Color.black);
+        choice4.setFont(startFont);
+        choice4.addActionListener(choiceHandler);
+        choice4.setActionCommand("c4");
+        AlienchoicePanel.add(choice4);
+
+        AlienplayerPanel = new JPanel();
+        AlienplayerPanel.setBounds(100,15,600,50);
+        AlienplayerPanel.setBackground(Color.black);
+        AlienplayerPanel.setLayout(new GridLayout(1,4));
+        Alien.add(AlienplayerPanel);
+
+        hpLabel = new JLabel("HP: ");
+        hpLabel.setFont(startFont);
+        hpLabel.setForeground(Color.white);
+        AlienplayerPanel.add(hpLabel);
+        hpLabelNumber = new JLabel();
+        hpLabelNumber.setFont(startFont);
+        hpLabelNumber.setForeground(Color.white);
+        AlienplayerPanel.add(hpLabelNumber);
+        weaponLabel = new JLabel("Weapon: ");
+        weaponLabel.setFont(startFont);
+        weaponLabel.setForeground(Color.white);
+        AlienplayerPanel.add(weaponLabel);
+        weaponLabelName = new JLabel();
+        weaponLabelName.setFont(startFont);
+        weaponLabelName.setForeground(Color.white);
+        AlienplayerPanel.add(weaponLabelName);
+
+        playerSetUp();
+    }   
+
+    public void playerSetUp(){
+        obeliskKey = 0;
+        position = "playerSetUp";
+        playerHP = 300;
+        AlienHP = 500;
+        playerWeapon ="Barefist";
+        choice1.setVisible(true);
+        choice2.setVisible(true);
+        choice3.setVisible(true);
+        choice4.setVisible(true);
+        weaponLabelName.setText(playerWeapon);
+        hpLabelNumber.setText("" + playerHP);
+        mainTextArea.setText("In the year 2739, you respond to a distress call from a deserted research outpost \n on a mysterious planet. The abandoned outpost reveals researchers who vanished while exploring an alien temple. Their distress beacon signals a mystery. With no alternatives, you venture into the temple to rescue the missing researchers. \n\n Enter the temple");
+        choice1.setText("Enter");
+        choice2.setText("");
+        choice3.setText("");
+        choice4.setText("");
+        
+        
+      
+      
+      
+      }
+    public void Room(){
+       position = "Room";
+       mainTextArea.setText(
+        "You have entered the main room\n" +
+        "You find a dead body; could this be one of the researchers, you ask?\n" +
+        "You approach the body.\n\n" +
+        "You found one of the researchers!\n" +
+        "You hear rumbling.............\n" +
+        "The door has closed behind you, you try to open it and it is locked.\n" +
+        "You see three different rooms; which one do you want to enter?"
+);
+
+        choice1.setText("West Room");
+        choice2.setText("North Room");
+        choice3.setText("East Room");
+        choice4.setText("Main door out");
+
+
+
+        
+
+    }
+
+    public void WestRoom(){
+        position = "WestRoom";
+        choice1.setVisible(true);
+        choice2.setVisible(true);
+        choice3.setVisible(true);
+        choice4.setVisible(true);
+        mainTextArea.setText(
+        "\n--------------------------------------------\n" +
+        "You have entered a strange room; you find what appears to be a stream of water, and you are preety thirsty.\n" +
+        "What do you want to do?\n\n"
+         );
+
+       
+    
+          
+
+        choice1.setText("Drink water");
+        choice2.setText("Go back to MAIN ROOM");
+        choice3.setText("");
+        choice4.setText("");
+
+
+    }
+    public void runAway() {
+        position = "runAway";
+        mainTextArea.setText("You tried to run away, but the door is locked!\nThe alien is getting closer!");
+        choice1.setText("Fight");
+        choice2.setText("");
+        choice3.setText("");
+        choice4.setText("");
+        choice2.setVisible(false);
+        choice3.setVisible(false);
+        choice4.setVisible(false);
+    }
+    public void NorthRoom (){
+
+        position = "NorthRoom";
+
+        if (obeliskKey == 1) {
+            mainTextArea.setText("You've already obtained the obelisk key. There's nothing else to do in this room.");
+            choice1.setText("Back to Main Room");
+            choice2.setText("");
+            choice3.setText("");
+            choice4.setText("");
+        } else {
+            
+                mainTextArea.setText(
+                    "The door closes behind you.\n" +
+                    "You encounter some form of alien lifeform that is running towards you.\n" +
+                    "You tried opening the door but it is locked.\n\n" +
+                    " You must fight!!!"
+            );
+            
+    
+
+        choice1.setText("Fight");
+        choice2.setText("Run");
+        choice3.setText("");
+        choice4.setText("");
+
+    }
+}
+
+
+    public void MainRoom (){
+        choice1.setVisible(true);
+        choice2.setVisible(true);
+        choice3.setVisible(true);
+        choice4.setVisible(true);
+        position = "MainRoom";
+        mainTextArea.setText(" Main room seems you need a key to get out");
+
+        choice1.setText("West Room");
+        choice2.setText("North Room");
+        choice3.setText("East Room");
+        choice4.setText("Main door out");
+    }
+      
+public void EastRoom (){
+        position = "EastRoom";
+
+mainTextArea.setText(
+        
+        "You find another researcher dead but he carried a Rifle!" +
+        "You take the Rifle with you!!"
+);
+
+    playerWeapon = "Rifle";
+    weaponLabelName.setText(playerWeapon);
+    choice1.setText("Back to Main room");
+        choice2.setText("");
+        choice3.setText("");
+        choice4.setText("");
+
+
+
+    }
+
+public void fight(){
+        position = "fight";
+        choice1.setVisible(true);
+        choice2.setVisible(true);
+        choice3.setVisible(true);
+        choice4.setVisible(true);
+        mainTextArea.setText("Alien Hp: " + AlienHP);
+        choice1.setText("Attack");
+        choice2.setText("");
+        choice3.setText("");
+        choice4.setText("");
+        choice2.setVisible(false);
+        choice3.setVisible(false);
+        choice4.setVisible(false);
+
+    }
+
+public void attack(){
+    position = "attack";
+
+    int playerDamage = 10;
+    if (playerWeapon.equals("Rifle")) {
+        playerDamage = new java.util.Random().nextInt(90);
+    } else if(playerWeapon.equals("Barefist")){
+        playerDamage = new java.util.Random().nextInt(20);
+    }
+    mainTextArea.setText("You attacked the Alien and gave it " +playerDamage + " damage!");
+
+    AlienHP = AlienHP - playerDamage;
+
+    
+
+        choice1.setText(">");
+        choice2.setText("");
+        choice3.setText("");
+        choice4.setText("");
+}
+
+public void Alienattack(){
+    position = "Alienattack";
+    int AlienDamage = 0;
+
+    AlienDamage = new java.util.Random().nextInt(55);
+    mainTextArea.setText("The Alien attacked you and gave " + AlienDamage + " damage! ");
+
+    playerHP = playerHP - AlienDamage;
+    hpLabelNumber.setText(""+playerHP);
+
+        choice1.setText(">");
+        choice2.setText("");
+        choice3.setText("");
+        choice4.setText("");
+
+}
+
+public void lose(){
+    position = "lose";
+
+    mainTextArea.setText("You DIED!\n\n<GAME OVER>");
+    choice1.setText("PLAY AGAIN");
+    choice2.setText("");
+    choice3.setText("");
+    choice4.setText("");
+    choice2.setVisible(false);
+    choice3.setVisible(false);
+    choice4.setVisible(false);
+
+
+
+}
+
+public void win(){
+    position = "win";
+
+    mainTextArea.setText("You defeated the Alien and the door opened!\nThe Alien dropped an Obelisk Key!\n\n(You obtained an Obelisk key)");
+    obeliskKey = 1;
+
+    choice1.setText("Go back to main room");
+    choice2.setText("");
+    choice3.setText("");
+    choice4.setText("");
+}
+
+    public void end(){
+        position = "end";
+
+        mainTextArea.setText(
+        "You avenged the fellow Researchers and live for another Adventure!!!\n" +
+        "\n\n  <THE END>");
+
+    choice1.setText("PLAY AGAIN");
+    choice2.setText("");
+    choice3.setText("");
+    choice4.setText("");
+    choice2.setVisible(false);
+    choice3.setVisible(false);
+    choice4.setVisible(false);
+
+
+
+    }
+//To make buttons work
+ public class TitleScreenHandler implements ActionListener{
+
+    public void actionPerformed(ActionEvent event){
+        createGameScreen();
+    }
+ }
+
+    public class ChoiceHandler implements ActionListener{
+
+        public void actionPerformed(ActionEvent event){
+            String yourChoice = event.getActionCommand(); // 
+
+            switch(position){
+                case "playerSetUp" :
+                switch (yourChoice) {
+                    case "c1": Room();
+                        break;
+                    case "c2": break;
+                    case "c3": break;
+                }
+                break;
+            case "Room" :
+                switch(yourChoice){
+                
+                case "c1": WestRoom();
+                    break;
+                case "c2": NorthRoom();
+                    break;
+                case "c3": EastRoom();
+                    break;
+                case "c4": if (obeliskKey == 1) {
+                    // Call UI method for ending the game
+                    end();
+                } else {
+                
+                    MainRoom();
+                }
+                break;
+                
+            }
+                break;
+            case "WestRoom" :
+            switch (yourChoice) {
+                case "c1":  if (playerHP < 400){
+                    playerHP = playerHP + 10;
+                    hpLabelNumber.setText(""+playerHP);
+                }
+                break;
+                case "c2": MainRoom();   
+                    break;
+                case "c3": break;
+            }
+            break;
+
+            case "MainRoom" :
+            switch (yourChoice) {
+                case "c1": WestRoom();
+                    break;
+                case "c2": NorthRoom();
+                    break;
+                case "c3": EastRoom();
+                    break;
+                case "c4": if (obeliskKey == 1) {
+                    // Call UI method for ending the game
+                    end();
+                } else {
+                
+                    MainRoom();
+                }
+            }
+                    break;
+            
+            case "EastRoom" :
+            switch (yourChoice) {
+                case "c1": MainRoom(); break;
+                }
+                break;
+
+              case "NorthRoom" :
+            switch (yourChoice) {
+                case "c1": fight(); break;
+                case "c2": runAway(); break;
+                }
+                break;
+
+              case "fight":
+              switch (yourChoice) {
+                case "c1": attack(); break;
+                
+                    
+                }
+                
+              
+              break;
+
+              case "attack":
+                switch (yourChoice) {
+                    case "c1" :
+                    if(AlienHP < 1){
+                        win();
+                    }
+                    else{
+                        Alienattack(); break;
+                    }
+                  break;
+                
+                }
+                 break;
+               case "Alienattack":
+               switch (yourChoice) {
+                case "c1": 
+                if(playerHP < 1){
+                    lose();
+                }
+                else{
+                   fight(); break; 
+                }
+               break;
+               }
+               break;
+            case "win":
+             switch (yourChoice) {
+                case "c1": MainRoom();
+                    break;
+             }
+             break;
+             case "lose":
+             switch (yourChoice) {
+                case "c1": playerSetUp();
+                    break;
+             }
+             break;
+             case "end":
+             switch (yourChoice) {
+                case "c1": playerSetUp();
+                    break;
+             }
+                    break;
+             case "runAway":
+             switch (yourChoice) {
+                case "c1": fight();break;
+            
+             }
+             break;
+
+
+                
+         
+            }
+
+
+        }
+    }
+}
